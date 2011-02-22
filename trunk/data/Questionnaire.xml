@@ -1,159 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Questionnaire>
 	<Category name="SPORTS">
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Who is the highest run-scorer in One-day internationals?">
+			<Response isCorrect="false">S. Sreesanth</Response>
+			<Response isCorrect="false">Munaf Patel</Response>
+			<Response isCorrect="true">Sachin Ramesh Tendulkar</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Who won the FIFA Soccer World Cup 2010?">
+			<Response isCorrect="false">Brazil</Response>
+			<Response isCorrect="false">Netherlands</Response>
+			<Response isCorrect="true">Spain</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Who won the French Open 2010 ?">
+			<Response isCorrect="false">Roger Federer</Response>
+			<Response isCorrect="true">Rapheal Nadal</Response>
+			<Response isCorrect="false">Andy Roddick</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Winner of Wimbledon 2010?">
+			<Response isCorrect="true">Rapheal Nadal</Response>
+			<Response isCorrect="false">Tomas Berdych</Response>
+			<Response isCorrect="false">Andy Roddick</Response>
+			<Response isCorrect="false">SKIP_QUESTION</Response>
 		</Question>
 	</Category>
 	<Category name="TECHNOLOGY">
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="The maker of tablet PC PlayBook?">
+			<Response isCorrect="false">Apple</Response>
+			<Response isCorrect="false">Dell</Response>
+			<Response isCorrect="true">Blackberry</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Founder of Facebook ?">
+			<Response isCorrect="true">Mark Zuckerberg</Response>
+			<Response isCorrect="false">Sergey Brin</Response>
+			<Response isCorrect="false">Steve Jobs</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="The mobile OS developed by Google?">
+			<Response isCorrect="false">Symbian</Response>
+			<Response isCorrect="false">iOS</Response>
+			<Response isCorrect="true">Android</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Which of these is a smartphone developed by Sony Ericsson?">
+			<Response isCorrect="false">Galaxy</Response>
+			<Response isCorrect="false">iPhone</Response>
+			<Response isCorrect="true">Xperia</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
 	</Category>
 	<Category name="ENTERTAINMENT">
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Which of these movies star Matt Damon">
+			<Response isCorrect="true">Goodwill Hunting</Response>
+			<Response isCorrect="false">Inglorious Bastards</Response>
+			<Response isCorrect="false">Mission Impossible</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Which of these actors is a double Oscar winner?">
+			<Response isCorrect="false">Matt Damon</Response>
+			<Response isCorrect="false">Russell Crowe</Response>
+			<Response isCorrect="true">Tom Hanks</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Which of these movies have not won an Oscar?">
+			<Response isCorrect="false">A Beautiful Mind</Response>
+			<Response isCorrect="false">Gandhi</Response>
+			<Response isCorrect="true">The Departed</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-		</Question>
-	</Category>
-	<Category name="RELIGION">
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Which of these animated movied stars Brad Pitt">
+			<Response isCorrect="false">Finding Nemo</Response>
+			<Response isCorrect="false">Kung Fu Panda</Response>
+			<Response isCorrect="true">Megamind</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
 	</Category>
-	<Category name="HUMANITIES">
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+	<Category name="LITERATURE">
+		<Question text="Who is the author of The Great Expectations ?">
+			<Response isCorrect="false">Ernest Hemingway</Response>
+			<Response isCorrect="true">Charles Dickens</Response>
+			<Response isCorrect="false">William Shakespeare</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Which of these is not written by William Shakespeare ?">
+			<Response isCorrect="true">Don Xoxiote</Response>
+			<Response isCorrect="false">The Tempest</Response>
+			<Response isCorrect="false">Julius Caesar</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Author of Midnight's Children ?">
+			<Response isCorrect="false">Vikram Seth</Response>
+			<Response isCorrect="false">Arundhati Roy</Response>
+			<Response isCorrect="true">Salman Rushdie</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Who Authored God of Small Things ?">
+			<Response isCorrect="false">Aravind Adiga</Response>
+			<Response isCorrect="true">Arundhati Roy</Response>
+			<Response isCorrect="false">Gurcharan Das</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
 	</Category>
-	<Category name="MOVIES">
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+	<Category name="GEOGRAPHY">
+		<Question text="How many states are there in USA ?">
+			<Response isCorrect="true">50</Response>
+			<Response isCorrect="false">45</Response>
+			<Response isCorrect="false">76</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Capital of Portugal">
+			<Response isCorrect="false">Berlin</Response>
+			<Response isCorrect="false">Rome</Response>
+			<Response isCorrect="true">Lisbon</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Currencey of Japan">
+			<Response isCorrect="false">Rupee</Response>
+			<Response isCorrect="false">Dollar</Response>
+			<Response isCorrect="true">Yen</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
-		<Question text="">
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
-			<Response isCorrect="false"></Response>
+		<Question text="Australia lies in which Hemisphere">
+			<Response isCorrect="false">Northern</Response>
+			<Response isCorrect="true">Southern</Response>
+			<Response isCorrect="false">Both</Response>
+			<Response isCorrect="undefined">SKIP_QUESTION</Response>
 		</Question>
 	</Category>
 </Questionnaire>

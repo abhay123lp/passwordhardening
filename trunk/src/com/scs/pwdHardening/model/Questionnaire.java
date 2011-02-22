@@ -21,12 +21,11 @@ public class Questionnaire {
 	private static final String RESPONSE= "Response";
 	private static final String CATEGORY_NAME = "name";
 	private static final String QUESTION_TEXT = "text";
+	private static final String ISCORRECT_ATTRIBUTE = "isCorrect";
 	
 	private static File questionnaireFile = new File("P:\\EclWorkspace\\SecureComputerSystems\\data\\Questionnaire.xml");
 	
-	private enum Category { SPORTS, TECHNOLOGY, ENTERTAINMENT, RELIGION, HUMANITIES, MOVIES };
-	
-	private static HashMap<Category, ArrayList<Question>> ALL_QUESTIONS = new HashMap<Category, ArrayList<Question>>();
+	public static HashMap<Category, ArrayList<Question>> ALL_QUESTIONS = new HashMap<Category, ArrayList<Question>>();
 	
 	static {
 		for(Category c : Category.values()){
@@ -55,6 +54,9 @@ public class Questionnaire {
 					for(int responseIdx = 0; responseIdx < questionNodes.getLength(); responseIdx++){
 						Element responseNode = (Element)responseNodes.item(responseIdx);
 						question.choices[responseIdx] = responseNode.getTextContent();
+						if(responseNode.getAttribute(ISCORRECT_ATTRIBUTE).equalsIgnoreCase("true")){
+							question.setCorrectResponseIndex(responseIdx);
+						}
 					}
 					categoryQuestions.add(question);
 				}
@@ -68,5 +70,5 @@ public class Questionnaire {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 }
