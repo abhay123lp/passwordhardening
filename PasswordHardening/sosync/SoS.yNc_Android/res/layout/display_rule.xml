@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rel_layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+	android:id="@+id/app_name" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/app_name"
+    android:textSize="50px"
+    android:textStyle="bold"
+    android:typeface="serif"
+    />  
+    
+<ListView android:id="@android:id/list"
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_name"
+        />
+    
+<TextView 
+	android:id="@+id/group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@android:id/list"
+    />
+
+<TextView 
+	android:id="@+id/event"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/group"
+    />
+    
+<TextView 
+	android:id="@+id/action"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/event"
+    />
+    
+   
+<Button android:id="@+id/back"    
+			android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:text="Back"
+            android:textStyle="bold"/>
+    
+</RelativeLayout>

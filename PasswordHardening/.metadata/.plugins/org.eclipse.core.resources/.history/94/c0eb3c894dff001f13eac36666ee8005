@@ -1,0 +1,13 @@
+package com.buzzters.sosync.activity;
+
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.view.View;
+import android.widget.*;
+
+public class google_credentials extends Activity {
+	
+
+	
+}

@@ -1,0 +1,8 @@
+package com.buzzters.sosync.activity;
+
+import android.app.*;
+import android.content.*;
+
+public class google_credentials {
+
+}

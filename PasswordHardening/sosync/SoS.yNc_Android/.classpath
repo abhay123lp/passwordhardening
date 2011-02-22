@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="src" path="FacebookSDK_src"/>
+	<classpathentry kind="lib" path="E:/EclWorkspace/sosync/SoS.yNc_Android/lib/json-lib-2.3-jdk15.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
