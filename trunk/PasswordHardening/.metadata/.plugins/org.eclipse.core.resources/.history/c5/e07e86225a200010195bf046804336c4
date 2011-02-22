@@ -1,0 +1,65 @@
+package com.example.helloandroid.service;
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.IBinder;
+import android.widget.Toast;
+
+public class Start extends Service {
+
+	final Service currentService = this;
+	
+	@Override
+	public IBinder onBind(Intent intent){
+		return null;
+	}
+	
+	@Override
+	public void onCreate(){
+		super.onCreate();
+		Toast.makeText(this, "Creating", Toast.LENGTH_LONG).show();
+	}
+	
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		Toast.makeText(this, "Stopping", Toast.LENGTH_LONG).show();
+	}
+	
+	@Override
+	public void onStart(Intent intent, int startId){
+		
+	LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+	Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+	LocationListener locationListener= new LocationListener();
+	lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
+	double longitude = location.getLongitude();
+	double latitude = location.getLatitude();
+	System.out.println(longitude);
+	System.out.println(latitude);
+}
+}
+
+public class myLocationListener implements LocationListener{
+
+    public void onLocationChanged(Location argLocation) {
+            if(argLocation != null){
+               String latitude = String.valueOf(argLocation.getLatitude());
+               String longitude = String.valueOf(argLocation.getLongitude());
+            }
+    }
+    public void onProviderDisabled(String provider) {
+    }
+
+    public void onProviderEnabled(String provider) {
+    }
+
+    public void onStatusChanged(String provider, int status, Bundle
+arg2) {
+    }
+
+}

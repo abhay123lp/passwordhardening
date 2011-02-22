@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.buzzters.sosync.activity.google_credentials.java&apos; to &apos;google_calender.java&apos;&#x0D;&#x0A;- Original project: &apos;SoS.yNc&apos;&#x0D;&#x0A;- Original element: &apos;com.buzzters.sosync.activity.google_credentials.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.buzzters.sosync.activity.google_calender.java&apos;" description="Rename compilation unit &apos;google_credentials.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;com.buzzters.sosync.activity{google_credentials.java" name="google_calender.java" references="false" stamp="1291445161488" version="1.0"/>
+</session>
