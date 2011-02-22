@@ -50,7 +50,7 @@ public class Questionnaire {
 				for(int questionIdx = 0; questionIdx < questionNodes.getLength(); questionIdx++){
 					Element questionNode = (Element)questionNodes.item(questionIdx);
 					Question question = new Question(questionNode.getAttribute(QUESTION_TEXT));
-					NodeList responseNodes = categoryNode.getElementsByTagName(RESPONSE);
+					NodeList responseNodes = questionNode.getElementsByTagName(RESPONSE);
 					for(int responseIdx = 0; responseIdx < questionNodes.getLength(); responseIdx++){
 						Element responseNode = (Element)responseNodes.item(responseIdx);
 						question.choices[responseIdx] = responseNode.getTextContent();
