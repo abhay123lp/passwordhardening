@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.scs.pwdHardening.model.Question;
 import com.scs.pwdHardening.model.ResponseType;
+import com.scs.pwdHardening.model.User;
 
 public class LoginService {
 	
@@ -14,10 +15,19 @@ public class LoginService {
 			userResponse.put(question, ResponseType.SKIPPED);
 			return true;
 		}
-		else{
+		else {
 			ResponseType rType = question.getCorrectResponseIndex() == userResponseIndex ? ResponseType.CORRECT : ResponseType.INCORRECT;
 			userResponse.put(question, rType);
 			return false;
 		}
 	}
+	
+	public void createInstructionTable(String userName, String password, Map<Question, ResponseType> userResponse){
+		
+	}
+	
+	public void initializeUser(User user, int nDistinguishingFeatures){
+		user.initializeInstructionTable(nDistinguishingFeatures);
+	}
+	
 }
