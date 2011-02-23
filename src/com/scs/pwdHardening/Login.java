@@ -2,24 +2,28 @@ package com.scs.pwdHardening;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.scs.pwdHardening.model.Category;
 import com.scs.pwdHardening.model.Question;
 import com.scs.pwdHardening.model.Questionnaire;
 import com.scs.pwdHardening.model.ResponseType;
+import com.scs.pwdHardening.model.User;
 import com.scs.pwdHardening.service.LoginService;
 import com.scs.pwdHardening.utility.Utility;
 
 public class Login {
 	
 	private static Scanner scanner = new Scanner(System.in);
-	private static LoginService loginService = new LoginService();
 	private static Map<Question, ResponseType> userResponse = new HashMap<Question, ResponseType>();
+	private static final int NO_MANDATORY_QUESTIONS = 3;
+	private static LoginService loginService = new LoginService();
+	private static Set<User> userList = new HashSet<User>();
 	
 	public static void main(String[] args) {
-		Questionnaire questionnaire = new Questionnaire();
 
 		System.out.print("Enter userName : ");
 		String userName = scanner.nextLine();
@@ -27,11 +31,21 @@ public class Login {
 		System.out.print("Enter password : ");
 		String password = scanner.nextLine();
 		
+		User currentUser = new User(userName, password, NO_MANDATORY_QUESTIONS);
+		askQuestions();
+		
+		if(!userList.contains(currentUser)){
+			
+		}
+		
+	}
+	
+	private static void askQuestions(){
 		int answeredQuestionsCount = 0, curIndex = 1;
 		
 		for(Category currCategory : Category.values()){
-			if(answeredQuestionsCount <= 3){
-				boolean canSkipQuestion = Category.values().length - curIndex > 3 - answeredQuestionsCount;
+			if(answeredQuestionsCount < NO_MANDATORY_QUESTIONS){
+				boolean canSkipQuestion = Category.values().length - curIndex > NO_MANDATORY_QUESTIONS - answeredQuestionsCount;
 				boolean skipped = askQuestionFromList(Questionnaire.ALL_QUESTIONS.get(currCategory), canSkipQuestion);
 				answeredQuestionsCount = skipped ? answeredQuestionsCount : ++answeredQuestionsCount;
 			}
@@ -81,4 +95,4 @@ public class Login {
 		}
 		return chosenResponse;
 	}
-}
+} 
