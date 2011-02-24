@@ -1,5 +1,6 @@
 package com.scs.pwdHardening.model;
 
+import java.io.File;
 import java.math.BigInteger;
 import java.util.Random;
 
@@ -10,7 +11,8 @@ public class User {
 	String password;
 	private Integer [] polynomialCoefficients;
 	private BigInteger[][] instructionTable;
-	private BigInteger q = BigInteger.probablePrime(160, new Random());
+	public BigInteger q = BigInteger.probablePrime(160, new Random());
+	private File historyFile;
 	
 	public User(String userName, String password, int nDistinguishingFeatures){
 		this.userName = userName;
@@ -19,9 +21,29 @@ public class User {
 		this.instructionTable = new BigInteger[nDistinguishingFeatures][2];
 	}
 	
-	public void initializeInstructionTable(int nDistinguishingFeatures){
+	public File getHistoryFile(File historyFile){
+		return this.historyFile;
+	}
+	
+	public void setHistoryFile(File historyFile){
+		this.historyFile = historyFile;
+	}
+	
+	public String getUserName(){
+		return this.userName;
+	}
+	
+	public Integer [] getPolynomialCoefficients(){
+		return this.polynomialCoefficients;
+	}
+	
+	public BigInteger[][] getInstructionTable(){
+		return this.instructionTable;
+	}
+	
+	public void initializeInstructionTable(){
 		generatePolynomialFunction();
-		for(int i = 0; i < nDistinguishingFeatures; i++){
+		for(int i = 0; i < Category.values().length; i++){
 			int x = 2*(i+1);
 			instructionTable[i][0] = BigInteger.valueOf(f(x)).add(Utility.calculateHMAC(password, x).mod(q));
 			instructionTable[i][1] = BigInteger.valueOf(f(x+1)).add(Utility.calculateHMAC(password, x+1).mod(q));
@@ -55,5 +77,9 @@ public class User {
 	@Override
 	public int hashCode(){
 		return this.userName.hashCode();
+	}
+
+	public String getPassword() {
+		return this.password;
 	}
 }

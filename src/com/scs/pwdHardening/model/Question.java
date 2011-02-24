@@ -5,6 +5,15 @@ public class Question {
 	String question;
 	public String [] choices =  new String[4];
 	private int correctResponseIndex;
+	private Category category;
+	
+	public Category getCategory(){
+		return this.category;
+	}
+	
+	public void setCategory(Category category){
+		this.category = category;
+	}
 	
 	public Question(String question){
 		this.question = question;
