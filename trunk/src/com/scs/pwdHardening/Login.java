@@ -31,11 +31,22 @@ public class Login {
 		System.out.print("Enter password : ");
 		String password = scanner.nextLine();
 		
-		User currentUser = new User(userName, password, NO_MANDATORY_QUESTIONS);
+		User currentUser = null;
+		for(User user : userList){
+			if(userName.equalsIgnoreCase(user.getUserName())){
+				currentUser = user;
+				break;
+			}
+		}
 		askQuestions();
 		
-		if(!userList.contains(currentUser)){
-			
+		if(currentUser == null){
+			System.out.println("User " + userName +" does not exist. Creating new user");
+			currentUser = new User(userName, password, NO_MANDATORY_QUESTIONS);
+			loginService.initializeUser(currentUser);
+		}
+		else {
+			currentUser.setHistoryFile(Utility.getHistoryFileFromUserName(currentUser.getUserName()));
 		}
 		
 	}

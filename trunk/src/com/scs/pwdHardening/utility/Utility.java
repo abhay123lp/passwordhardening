@@ -1,5 +1,6 @@
 package com.scs.pwdHardening.utility;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
@@ -42,5 +43,9 @@ public final class Utility {
 	
 	public static BigInteger calculateHMAC(String key, int pText){
 		return new BigInteger(calculateHMAC(key, String.valueOf(pText)));
+	}
+	
+	public static File getHistoryFileFromUserName(String userName){
+		return new File("C://"+userName+".txt");
 	}
 }
