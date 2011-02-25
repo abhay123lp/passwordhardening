@@ -25,39 +25,41 @@ public class Login {
 	private static Set<User> userList = new HashSet<User>();
 	
 	public static void main(String[] args) throws IOException {
-
-		System.out.print("Enter userName : ");
-		String userName = scanner.nextLine();
-		
-		System.out.print("Enter password : ");
-		String password = scanner.nextLine();
-		
-		User currentUser = null;
-		for(User user : userList){
-			if(userName.equalsIgnoreCase(user.getUserName())){
-				currentUser = user;
-				break;
+		System.out.println("Secure Login Program Initiated");
+		while(scanner.nextLine().equalsIgnoreCase("C")){
+			System.out.print("Enter userName : ");
+			String userName = scanner.nextLine();
+			
+			System.out.print("Enter password : ");
+			String password = scanner.nextLine();
+			
+			User currentUser = null;
+			for(User user : userList){
+				if(userName.equalsIgnoreCase(user.getUserName())){
+					currentUser = user;
+					break;
+				}
 			}
-		}
-		askQuestions();
-		if(currentUser == null){
-			System.out.println("User " + userName +" does not exist. Creating new user");
-			currentUser = new User(userName, password, Category.values().length);
-			loginService.initializeUser(currentUser);
-			loginService.createHistoryFile(currentUser, userResponse);
-		}
-		else {
-			currentUser.setHistoryFile(Utility.getHistoryFileFromUserName(currentUser.getUserName()));
-			if(loginService.verifyUser(currentUser, userResponse)){ 
-				System.out.println("Successfully verified user : " + currentUser.getUserName());
+			askQuestions();
+			if(currentUser == null){
+				System.out.println("User " + userName +" does not exist. Creating new user");
+				currentUser = new User(userName, password, Category.values().length);
+				loginService.initializeUser(currentUser);
+				loginService.createHistoryFile(currentUser, userResponse);
 			}
-			else{
-				System.out.println("User verification failed : " + currentUser.getUserName());
+			else {
+				currentUser.setHistoryFile(Utility.getHistoryFileFromUserName(currentUser.getUserName()));
+				if(loginService.verifyUser(currentUser, userResponse)){ 
+					System.out.println("Successfully verified user : " + currentUser.getUserName());
+				}
+				else{
+					System.out.println("User verification failed : " + currentUser.getUserName());
+				}
 			}
+			System.out.println("Would you like to continue of quit : (C) or (Q)");
 		}
-		
 	}
-	
+
 	private static void askQuestions(){
 		int answeredQuestionsCount = 0, curIndex = 1;
 		
