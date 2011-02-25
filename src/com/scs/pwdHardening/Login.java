@@ -19,14 +19,16 @@ import com.scs.pwdHardening.utility.Utility;
 public class Login {
 	
 	private static Scanner scanner = new Scanner(System.in);
-	private static Map<Question, ResponseType> userResponse = new HashMap<Question, ResponseType>();
+	private static Map<Question, ResponseType> userResponse = null;
 	private static final int NO_MANDATORY_QUESTIONS = 3;
 	private static LoginService loginService = new LoginService();
 	private static Set<User> userList = new HashSet<User>();
 	
 	public static void main(String[] args) throws IOException {
 		System.out.println("Secure Login Program Initiated");
+		System.out.println("Would you like to continue of quit : (C) or (Q)");
 		while(scanner.nextLine().equalsIgnoreCase("C")){
+			userResponse = new HashMap<Question, ResponseType>();
 			System.out.print("Enter userName : ");
 			String userName = scanner.nextLine();
 			
