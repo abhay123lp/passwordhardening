@@ -1,8 +1,17 @@
 package com.scs.pwdHardening.service;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.util.Map;
 
+import com.scs.pwdHardening.History;
 import com.scs.pwdHardening.model.Category;
 import com.scs.pwdHardening.model.Question;
 import com.scs.pwdHardening.model.ResponseType;
@@ -52,6 +61,12 @@ public class LoginService {
 			}
 		}
 		BigInteger hpwd = computeHPWDFromCoordinates(coordinates, user.q);
+		
+		verifyHistoryFileContents(user, hpwd);
+		//History history = new History();
+		
+		//history.decrypt(key, history.encrypted, history.getIV());
+		
 	}
 	
 	private BigInteger computeHPWDFromCoordinates(BigInteger[][] coordinates, BigInteger q){
@@ -66,4 +81,58 @@ public class LoginService {
 		return hpwd.mod(q);
 	}
 	
+	private boolean verifyHistoryFileContents(User user, BigInteger hpwd){
+		
+		try{
+		File file = user.getHistoryFile();
+		String lineSep = System.getProperty("\n");
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		String nextLine = "";
+		StringBuffer sb = new StringBuffer();
+		while ((nextLine = br.readLine()) != null) {
+			sb.append(nextLine);
+			sb.append(lineSep);
+		}
+		byte[] ciphertext = sb.toString().getBytes();
+		String plaintext = History.decrypt(hpwd.toByteArray(), ciphertext, user.getIv());
+		if(plaintext.substring(0, 21) == "Decryption Successful")
+			return true;
+		return false;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			
+		}
+		return true;
+	}
+	
+	public void createHistoryFile(User currentUser, Map<Question, ResponseType> userResponse) throws IOException{
+		RandomAccessFile file= new RandomAccessFile(currentUser.getHistoryFile(), "rw");
+		String file3=file.toString();
+		FileOutputStream fos = null;
+		DataOutputStream dos = null;
+		try{
+			fos = new FileOutputStream(file3,true);
+			dos=new DataOutputStream(fos);
+			Integer[] poly = currentUser.getPolynomialCoefficients();
+		    byte[] key = poly[0].toString().getBytes();
+			byte[] ciphertext = History.encrypt(key, userResponse, currentUser);
+			dos.write(ciphertext);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally{
+			if(fos != null){
+				fos.close();
+			}
+			if(dos != null){
+				dos.close();
+			}
+		}
+	}
 }

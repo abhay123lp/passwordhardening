@@ -1,5 +1,13 @@
 package com.scs.pwdHardening;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,7 +31,7 @@ public class Login {
 	private static LoginService loginService = new LoginService();
 	private static Set<User> userList = new HashSet<User>();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		System.out.print("Enter userName : ");
 		String userName = scanner.nextLine();
@@ -39,14 +47,17 @@ public class Login {
 			}
 		}
 		askQuestions();
-		
+		History history = new History();
 		if(currentUser == null){
 			System.out.println("User " + userName +" does not exist. Creating new user");
 			currentUser = new User(userName, password, NO_MANDATORY_QUESTIONS);
 			loginService.initializeUser(currentUser);
+			loginService.createHistoryFile(currentUser, userResponse);
 		}
 		else {
 			currentUser.setHistoryFile(Utility.getHistoryFileFromUserName(currentUser.getUserName()));
+			loginService.verifyUser(currentUser, userResponse);	
+			
 		}
 		
 	}
