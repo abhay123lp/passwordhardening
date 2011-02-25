@@ -1,12 +1,6 @@
 package com.scs.pwdHardening;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +8,6 @@ import java.util.Set;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -128,20 +121,17 @@ public class History {
 		try{
 			String res = "Decryption Successful\n";
 			Set<Map.Entry<Question, ResponseType>> set= userResponse.entrySet();
-		      for(Map.Entry<Question, ResponseType> me : set) {
+		    for(Map.Entry<Question, ResponseType> me : set) {
 		    	ResponseType response = me.getValue(); 
 		    	res += response.value;  	
-		      }
-		       res = res + "\n";
+		    }
+		    res = res + "\n";
 			Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
 			SecretKeySpec newkey= new SecretKeySpec(key, "AES");
 			c.init(Cipher.ENCRYPT_MODE, newkey);
 	        byte[] input = res.getBytes();
 		    byte[] encrypted = c.doFinal(input);
-		    byte iv[] = c.getIV();
-		    user.setIv(iv);
-		    //this.setIV(iv);
-		   //this.setCipher(c);
+		    user.setIv(c.getIV());
 		   return encrypted;
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
@@ -158,10 +148,6 @@ public class History {
 		} catch (BadPaddingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		finally{
-			
 		}
 		return null;
 	}

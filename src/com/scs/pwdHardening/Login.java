@@ -1,13 +1,6 @@
 package com.scs.pwdHardening;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -47,17 +40,20 @@ public class Login {
 			}
 		}
 		askQuestions();
-		History history = new History();
 		if(currentUser == null){
 			System.out.println("User " + userName +" does not exist. Creating new user");
-			currentUser = new User(userName, password, NO_MANDATORY_QUESTIONS);
+			currentUser = new User(userName, password, Category.values().length);
 			loginService.initializeUser(currentUser);
 			loginService.createHistoryFile(currentUser, userResponse);
 		}
 		else {
 			currentUser.setHistoryFile(Utility.getHistoryFileFromUserName(currentUser.getUserName()));
-			loginService.verifyUser(currentUser, userResponse);	
-			
+			if(loginService.verifyUser(currentUser, userResponse)){ 
+				System.out.println("Successfully verified user : " + currentUser.getUserName());
+			}
+			else{
+				System.out.println("User verification failed : " + currentUser.getUserName());
+			}
 		}
 		
 	}
@@ -72,7 +68,7 @@ public class Login {
 				answeredQuestionsCount = skipped ? answeredQuestionsCount : ++answeredQuestionsCount;
 			}
 			else{
-				break;			
+				userResponse.put(Questionnaire.ALL_QUESTIONS.get(currCategory).get(0), ResponseType.SKIPPED);
 			}
 			++curIndex;
 		}
