@@ -112,8 +112,7 @@ public class LoginService {
 		RandomAccessFile randomAccessFile= new RandomAccessFile(currentUser.getHistoryFile(), "rw");
 		try{
 			Integer[] poly = currentUser.getPolynomialCoefficients();
-		    byte[] key = poly[0].toString().getBytes();
-			byte[] ciphertext = History.encrypt(key, userResponse, currentUser);
+			byte[] ciphertext = History.encrypt(BigInteger.valueOf(poly[0]), userResponse, currentUser);
 			randomAccessFile.write(ciphertext);
 		} catch (IOException e) {
 			e.printStackTrace();

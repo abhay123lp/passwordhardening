@@ -1,4 +1,5 @@
 package com.scs.pwdHardening;
+import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -114,9 +115,7 @@ public class History {
 	    }
 	}*/
 	
-	
-	
-	public static byte[] encrypt(byte[] key, Map<Question, ResponseType> userResponse, User user){
+	public static byte[] encrypt(BigInteger key, Map<Question, ResponseType> userResponse, User user){
 		
 		try{
 			String res = "Decryption Successful\n";
@@ -127,12 +126,30 @@ public class History {
 		    }
 		    res = res + "\n";
 			Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
-			SecretKeySpec newkey= new SecretKeySpec(key, "AES");
-			c.init(Cipher.ENCRYPT_MODE, newkey);
+			
+			byte[] unpaddedKey = key.toByteArray();
+			byte[] secretKey = new byte[32];
+			for(int idx = 0; idx < 32; ++idx){
+				secretKey[idx] = idx <= unpaddedKey.length - 1 ? unpaddedKey[0] : (byte)0;
+			}
+			
+			/*byte [] salt = new byte[8];
+			new SecureRandom().nextBytes(salt);
+			SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+			PBEKeySpec pkSpec = new PBEKeySpec(key.toString().toCharArray(), salt, 1024, 256);
+			SecretKey tmp = factory.generateSecret(pkSpec);
+			SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");*/
+			
+			
+			SecretKeySpec keySpec = null;
+			keySpec = new SecretKeySpec(secretKey, "AES");
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+			
+			cipher.init(Cipher.ENCRYPT_MODE, keySpec);
 	        byte[] input = res.getBytes();
 		    byte[] encrypted = c.doFinal(input);
 		    user.setIv(c.getIV());
-		   return encrypted;
+		    return encrypted;
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
