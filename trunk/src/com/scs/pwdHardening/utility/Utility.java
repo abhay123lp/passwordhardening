@@ -46,6 +46,6 @@ public final class Utility {
 	}
 	
 	public static File getHistoryFileFromUserName(String userName){
-		return new File("C://"+userName+".txt");
+		return new File("P://"+userName+".txt");
 	}
 }
