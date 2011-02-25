@@ -13,6 +13,7 @@ public class User {
 	private BigInteger[][] instructionTable;
 	public BigInteger q = BigInteger.probablePrime(160, new Random());
 	private File historyFile;
+	private byte[] iv;
 	
 	public User(String userName, String password, int nDistinguishingFeatures){
 		this.userName = userName;
@@ -21,7 +22,15 @@ public class User {
 		this.instructionTable = new BigInteger[nDistinguishingFeatures][2];
 	}
 	
-	public File getHistoryFile(File historyFile){
+	public byte[] getIv() {
+		return iv;
+	}
+
+	public void setIv(byte[] iv) {
+		this.iv = iv;
+	}
+
+	public File getHistoryFile(){
 		return this.historyFile;
 	}
 	
