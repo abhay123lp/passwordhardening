@@ -23,7 +23,7 @@ public class Questionnaire {
 	private static final String QUESTION_TEXT = "text";
 	private static final String ISCORRECT_ATTRIBUTE = "isCorrect";
 	
-	private static File questionnaireFile = new File("P:\\EclWorkspace\\SecureComputerSystems\\data\\Questionnaire.xml");
+	private static File questionnaireFile = new File("./data\\Questionnaire.xml");
 	
 	public static HashMap<Category, ArrayList<Question>> ALL_QUESTIONS = new HashMap<Category, ArrayList<Question>>();
 	
