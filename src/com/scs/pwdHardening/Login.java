@@ -37,7 +37,7 @@ public class Login {
 			
 			User currentUser = null;
 			for(User user : userList){
-				if(userName.equalsIgnoreCase(user.getUserName())){
+				if(user.getUserName().equalsIgnoreCase(userName)){
 					currentUser = user;
 					break;
 				}
@@ -48,6 +48,7 @@ public class Login {
 				currentUser = new User(userName, password, Category.values().length);
 				loginService.initializeUser(currentUser);
 				loginService.createHistoryFile(currentUser, userResponse);
+				userList.add(currentUser);
 			}
 			else {
 				currentUser.setHistoryFile(Utility.getHistoryFileFromUserName(currentUser.getUserName()));
@@ -83,7 +84,7 @@ public class Login {
 		Question q = categoryQuestions.get(randIndex);
 		System.out.println(q.getQuestion());
 		System.out.println("Your choices are : ");
-		categoryQuestions.remove(randIndex);	// We have asked this question. Remove it so that we don't repeat it.
+		//categoryQuestions.remove(randIndex);	// We have asked this question. Remove it so that we don't repeat it.
 		
 		int userResponseIndex = getResponse(q.getChoices(), canSkipQuestion) - 1;
 		
