@@ -14,6 +14,7 @@ public class User {
 	public BigInteger q = BigInteger.probablePrime(160, new Random());
 	private File historyFile;
 	private byte[] iv;
+	public String decFileContents;
 	
 	public User(String userName, String password, int nDistinguishingFeatures){
 		this.userName = userName;
@@ -63,6 +64,21 @@ public class User {
 		// Polynomial function is of the form y = a[0] + a[1]x + a[2]x^2 + ... a[m-1]x^(m-1)
 		for(int i = 0; i < polynomialCoefficients.length; ++i){
 			polynomialCoefficients[i] = Utility.getRandomInteger(0, 10);
+		}
+	}
+	
+	public void updateInstructionTable(int [] categoryResultsCount, int totalFeatureVectorCount){
+		generatePolynomialFunction();
+		for(int i = 0; i < categoryResultsCount.length; i++){
+			int x = 2*(i+1);
+			if(categoryResultsCount[i]*2 >= totalFeatureVectorCount){		// More correct results in this category
+				instructionTable[i][0] = BigInteger.valueOf(f(x)).add(Utility.calculateHMAC(password, x).mod(q));
+				instructionTable[i][1] = BigInteger.valueOf(Utility.getRandomInteger(1, 90000));
+			}
+			else{
+				instructionTable[i][0] = BigInteger.valueOf(Utility.getRandomInteger(1, 90000));
+				instructionTable[i][1] = BigInteger.valueOf(f(x+1)).add(Utility.calculateHMAC(password, x+1).mod(q)); 
+			}
 		}
 	}
 	
