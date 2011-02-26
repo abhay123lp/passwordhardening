@@ -1,12 +1,12 @@
 package com.scs.pwdHardening.service;
 
-import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.util.Map;
+import java.util.Scanner;
 
 import com.scs.pwdHardening.History;
 import com.scs.pwdHardening.model.Category;
@@ -29,10 +29,6 @@ public class LoginService {
 			userResponse.put(question, rType);
 			return false;
 		}
-	}
-	
-	public void createInstructionTable(String userName, String password, Map<Question, ResponseType> userResponse){
-		
 	}
 	
 	public void initializeUser(User user){
@@ -58,8 +54,43 @@ public class LoginService {
 			}
 		}
 		BigInteger hpwd = computeHPWDFromCoordinates(coordinates, user.q);
+		hpwd = BigInteger.valueOf(user.getPolynomialCoefficients()[0]);
 		
-		return verifyHistoryFileContents(user, hpwd);
+		if(verifyHistoryFileContents(user, hpwd)){
+			updateInstructionTable(user, userResponse);
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public void updateInstructionTable(User user, Map<Question, ResponseType> userResponse){
+		Scanner decContentsScanner = new Scanner(user.decFileContents);
+		int [] categoryResultsCount = new int[Category.values().length]; 
+		int totalFeatureVectorCount = 0;
+		// Get previous history results
+		while(decContentsScanner.hasNextLine()){
+			String line = decContentsScanner.nextLine();
+			if(!line.contains("Decryption")){
+				++totalFeatureVectorCount;
+				// This line must be feature vector.
+				for(int idx = 0; idx < line.length(); idx++){
+					if(Character.digit(line.charAt(idx),10) == ResponseType.CORRECT.value){
+						++categoryResultsCount[idx];
+					}
+				}
+			}
+		}
+		++totalFeatureVectorCount;
+		// Update count with current results
+		for(Question q : userResponse.keySet()){
+			if(userResponse.get(q).equals(ResponseType.CORRECT)){
+				++categoryResultsCount[q.getCategory().index];
+			}
+		}
+		// Update polynomial function with new polynomial function
+		user.updateInstructionTable(categoryResultsCount, totalFeatureVectorCount);	
 	}
 	
 	private BigInteger computeHPWDFromCoordinates(BigInteger[][] coordinates, BigInteger q){
@@ -67,26 +98,29 @@ public class LoginService {
 		for(int i = 0; i < Category.values().length; i++){
 			BigInteger lambda = BigInteger.ONE;
 			for(int j = 0; j < Category.values().length; j++){
-				lambda = lambda.multiply(coordinates[j][0].divide(coordinates[j][0].subtract(coordinates[i][0])));
+				if(i != j){
+					lambda = lambda.multiply(coordinates[j][0].multiply(coordinates[j][0].subtract(coordinates[i][0]).modInverse(q)));
+					//lambda = lambda * (coordinates[j][0]/(coordinates[j][0]-coordinates[i][0]));
+				}
 			}
-			hpwd.add(coordinates[i][1].multiply(lambda));
+			//hpwd = hpwd.add(BigInteger.valueOf(Math.round(coordinates[i][1] * lambda)));
+			hpwd = hpwd.add(coordinates[i][1].multiply(lambda));
 		}
 		return hpwd.mod(q);
 	}
 	
 	private boolean verifyHistoryFileContents(User user, BigInteger hpwd){
-		BufferedReader br = null;
+		Scanner scanner = null;
 		try{
 		File historyFile = user.getHistoryFile();
-		String lineSep = System.getProperty("\n");
-		br = new BufferedReader(new FileReader(historyFile));
-		String nextLine = "";
+		//String lineSep = System.getProperty("\n");
+		scanner = new Scanner(new FileReader(historyFile));
+		scanner.useDelimiter("q");
 		StringBuffer sb = new StringBuffer();
-		while ((nextLine = br.readLine()) != null) {
-			sb.append(nextLine);
-			sb.append(lineSep);
+		while(scanner.hasNext()){
+			sb.append(scanner.next()).append("q");
 		}
-		byte[] ciphertext = sb.toString().getBytes();
+		byte[] ciphertext = sb.substring(0, sb.length() - 1).getBytes("UTF-8");
 		String plaintext = History.decrypt(hpwd.toByteArray(), ciphertext, user.getIv());
 		if(plaintext.substring(0, 21).equals("Decryption Successful"))
 			return true;
@@ -96,11 +130,7 @@ public class LoginService {
 			e.printStackTrace();
 		}
 		finally{
-			try {
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			scanner.close();
 		}
 		return true;
 	}
@@ -109,16 +139,20 @@ public class LoginService {
 		if(!currentUser.getHistoryFile().exists()){
 			currentUser.getHistoryFile().createNewFile();
 		}
-		RandomAccessFile randomAccessFile= new RandomAccessFile(currentUser.getHistoryFile(), "rw");
+		FileOutputStream fos = null;
+		//RandomAccessFile randomAccessFile= new RandomAccessFile(currentUser.getHistoryFile(), "rw");
 		try{
+			fos = new FileOutputStream(currentUser.getHistoryFile());
 			Integer[] poly = currentUser.getPolynomialCoefficients();
 			byte[] ciphertext = History.encrypt(BigInteger.valueOf(poly[0]), userResponse, currentUser);
-			randomAccessFile.write(ciphertext);
+			fos.write(ciphertext);
+			//randomAccessFile.write(ciphertext);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		finally{
-			randomAccessFile.close();
+			fos.close();
+			//randomAccessFile.close();
 		}
 	}
 }
