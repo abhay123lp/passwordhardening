@@ -38,10 +38,13 @@ public class Login {
 			User currentUser = null;
 			for(User user : userList){
 				if(user.getUserName().equalsIgnoreCase(userName)){
+					if(user.getPassword().equalsIgnoreCase(password)){
 					currentUser = user;
 					break;
 				}
 			}
+			}	
+				
 			askQuestions();
 			if(currentUser == null){
 				System.out.println("User " + userName +" does not exist. Creating new user");
