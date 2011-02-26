@@ -125,11 +125,11 @@ public class History {
 		    	res += response.value;  	
 		    }
 		    res = res + "\n";
-			Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			//Cipher c = Cipher.getInstance("AES/CBC/");
 			
 			byte[] unpaddedKey = key.toByteArray();
-			byte[] secretKey = new byte[32];
-			for(int idx = 0; idx < 32; ++idx){
+			byte[] secretKey = new byte[16];
+			for(int idx = 0; idx < 16; ++idx){
 				secretKey[idx] = idx <= unpaddedKey.length - 1 ? unpaddedKey[0] : (byte)0;
 			}
 			
@@ -143,12 +143,12 @@ public class History {
 			
 			SecretKeySpec keySpec = null;
 			keySpec = new SecretKeySpec(secretKey, "AES");
-			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 			
 			cipher.init(Cipher.ENCRYPT_MODE, keySpec);
 	        byte[] input = res.getBytes();
-		    byte[] encrypted = c.doFinal(input);
-		    user.setIv(c.getIV());
+		    byte[] encrypted = cipher.doFinal(input);
+		    //Cuser.setIv(cipher.getIV());
 		    return encrypted;
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
@@ -172,17 +172,20 @@ public class History {
 	public static String decrypt(byte[] key, byte[] encrypted, byte[] iv){
 		
 		try{
-		IvParameterSpec dps = new IvParameterSpec(iv);
-		Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
-		SecretKeySpec newkey= new SecretKeySpec(key, "AES");
-		c.init(Cipher.DECRYPT_MODE, newkey, dps);
+		//IvParameterSpec dps = new IvParameterSpec(iv);
+			
+		Cipher c = Cipher.getInstance("AES/ECB/PKCS5Padding");
+		byte[] secretKey = new byte[16];
+		for(int idx = 0; idx < 16; ++idx){
+			secretKey[idx] = idx <= key.length - 1 ? key[0] : (byte)0;
+		}
+		SecretKeySpec newkey= new SecretKeySpec(secretKey, "AES");
+		
+		c.init(Cipher.DECRYPT_MODE, newkey);
 		
 		byte output[] = c.doFinal(encrypted);
 		return(new String(output));
 	} catch (InvalidKeyException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (InvalidAlgorithmParameterException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	} catch (IllegalBlockSizeException e) {
@@ -197,7 +200,7 @@ public class History {
 	} catch (NoSuchPaddingException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+	} 
 		finally{
 			
 		}
