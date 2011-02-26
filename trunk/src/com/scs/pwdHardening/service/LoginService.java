@@ -1,8 +1,8 @@
 package com.scs.pwdHardening.service;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Map;
@@ -110,19 +110,14 @@ public class LoginService {
 	}
 	
 	private boolean verifyHistoryFileContents(User user, BigInteger hpwd){
-		Scanner scanner = null;
+		FileInputStream fis = null;
 		try{
 		File historyFile = user.getHistoryFile();
-		//String lineSep = System.getProperty("\n");
-		scanner = new Scanner(new FileReader(historyFile));
-		scanner.useDelimiter("q");
-		StringBuffer sb = new StringBuffer();
-		while(scanner.hasNext()){
-			sb.append(scanner.next()).append("q");
-		}
-		byte[] ciphertext = sb.substring(0, sb.length() - 1).getBytes("UTF-8");
+		fis = new FileInputStream(historyFile);
+		byte[] ciphertext = new byte[1040];
+		fis.read(ciphertext);
 		String plaintext = History.decrypt(hpwd.toByteArray(), ciphertext, user.getIv());
-		if(plaintext.substring(0, 21).equals("Decryption Successful"))
+		if(plaintext.contains("Decryption Successful"))
 			return true;
 		return false;
 		}catch (IOException e) {
@@ -130,7 +125,12 @@ public class LoginService {
 			e.printStackTrace();
 		}
 		finally{
-			scanner.close();
+			try {
+				fis.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
